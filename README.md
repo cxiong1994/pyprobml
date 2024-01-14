@@ -1,4 +1,4 @@
-# pyprobml
+# pyprobmle
 
 <img src="https://img.shields.io/github/stars/probml/pyprobml?style=social">
 
