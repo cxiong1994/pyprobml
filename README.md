@@ -3,29 +3,42 @@
 <img src="https://img.shields.io/github/stars/probml/pyprobml?style=social">
 
 
-Python 3 code to reproduce the figures in the book series [Probabilistic Machine Learning](https://probml.github.io/pml-book/) by Kevin Patrick Murphy.
-This is work in progress, so expect rough edges.
+Python 3 code to reproduce the figures in the books
+[Probabilistic Machine Learning: An Introduction](https://probml.github.io/pml-book/book1.html) (aka "book 1")
+and
+[Probabilistic Machine Learning: Advanced Topics](https://probml.github.io/pml-book/book2.html)
+(aka "book 2").
+The code uses the standard Python libraries, such as numpy, scipy, matplotlib, sklearn,  etc.
+Some of the code (especially in book 2) also uses [JAX](https://github.com/google/jax),
+and in some parts of book 1, we also use  [Tensorflow 2](https://github.com/tensorflow/tensorflow)
+and a little bit of [Torch](https://github.com/pytorch).
+See also [probml-utils](https://github.com/probml/probml-utils) for some utility code that is shared across multiple notebooks.
 
-See also [probml-utils](https://github.com/probml/probml-utils) for some utility code.
+For the latest status of the code,
+see [Book 1 dashboard](https://github.com/probml/pyprobml/blob/workflow_testing_indicator/dashboard_figures_book1.md)
+and [Book 2 dashboard](https://github.com/probml/pyprobml/blob/workflow_testing_indicator/dashboard_figures_book2.md).
+As of September 2022, this code is now in maintenance mode.
+
+
 
 ## Running the notebooks
 
+
 The notebooks needed to make all the figures are available at the following locations.
 
-* [Volume 1 figure notebooks](https://github.com/probml/pyprobml/tree/master/notebooks/book1)
-* [Volume 2 figure notebooks](https://github.com/probml/pyprobml/tree/master/notebooks/book2). 
+* [All notebooks (sorted by filename)](https://probml.github.io/notebooks)
+* [Book 1 notebooks (sorted by chapter)](https://github.com/probml/pyprobml/tree/master/notebooks/book1)
+* [Book 2 notebooks (sorted by chapter)](https://github.com/probml/pyprobml/tree/master/notebooks/book2). 
 
-Notebooks are saved in chapter-wise folders. For example, a notebook for figure 2.3 from book 1 is saved in the folder `notebooks/book1/02/`.
 
-In addition to the figure notebooks, there are a series of notebooks which provide supplementary material for the book. These are stored in the [`notebooks/misc` folder](https://github.com/probml/pyprobml/tree/master/notebooks/misc).
 
 ### Running notebooks in colab
 
 [Colab](https://colab.research.google.com/notebooks/intro.ipynb) has most of the libraries you will need (e.g., scikit-learn,  JAX) pre-installed, and gives you access to a free GPU and TPU. We have a created a 
-[colab intro](https://colab.research.google.com/github/probml/pyprobml/blob/master/notebooks/misc/colab_intro.ipynb)
+[colab intro](https://colab.research.google.com/github/probml/pyprobml/blob/master/notebooks/tutorials/colab_intro.ipynb)
 notebook with more details. To run the notebooks on colab in any browser, you can go to a particular notebook on GitHub and change the domain from `github.com` to `githubtocolab.com` as suggested [here](https://stackoverflow.com/a/67344477/13330701). If you are using Google Chrome browser, you can use ["Open in Colab" Chrome extension](https://chrome.google.com/webstore/detail/open-in-colab/iogfkhleblhcpcekbiedikdehleodpjo) to do the same with a single click.
 
-## Running the noteboks locally 
+## Running the notebooks locally 
 
 We assume you have already installed [JAX](https://github.com/google/jax#installation) and
 [Tensorflow](https://www.tensorflow.org/install) and [Torch](https://pytorch.org/),
@@ -47,9 +60,35 @@ Download [requirements.txt](https://github.com/probml/pyprobml/blob/master/requi
 pip install -r requirements.txt
 ```
 
-## GCP, TPUs, and all that
+* Option 3
 
-When you want more power or control than colab gives you, you should get a Google Cloud Platform (GCP) account, and get access to a TPU VM. You can then use this as a virtual desktop which you can access via ssh from inside VScode. We have created [a short tutorial on Colab, GCP and TPUs](https://github.com/probml/pyprobml/blob/master/tutorials/colab_gcp_tpu_tutorial.md) with more information.
+Run the following. (Note the `--depth 1` prevents installing the whole history, which is very large).
+```
+git clone --depth 1 https://github.com/probml/pyprobml.git
+```
+Then install manually.
+
+If you want to save the figures, you first need to execute something like this
+```
+#export FIG_DIR="/teamspace/studios/this_studio/figures"
+
+import os
+os.environ["FIG_DIR"] = "/teamspace/studios/this_studio/pyprobml/notebooks/figures"
+os.environ["DUAL_SAVE"] = "1" # both pdf and png
+```
+This is used by the [savefig](https://github.com/probml/probml-utils/blob/main/probml_utils/plotting.py#L78) function
+to store pdf files.
+
+
+## Cloud computing
+
+When you want more power or control than colab gives you,
+I recommend you use
+https://lightning.ai/docs/overview/studios,
+which makes it very easy to develop using VScode, running on a VM accessed from your  web browser;
+you can then launch on one or more GPUs when needed with a single button click.
+Alternatively, if you are a power user, you can try Google Cloud Platform, which supports GPUs and TPUs;
+see this [short tutorial on Colab, GCP and TPUs](https://github.com/probml/pyprobml/blob/master/notebooks/tutorials/colab_gcp_tpu_tutorial.md).
 
 
 ## How to contribute
@@ -63,9 +102,9 @@ See [this guide](https://github.com/probml/pyprobml/blob/master/CONTRIBUTING.md)
 
 ## GSOC 
 
-For a summary of some of the contributions to this codebase during Google Summer of Code (GSOC) 2021,
-see [this link](https://probml.github.io/pml-book/gsoc2021.html).
-Stay tuned for GSOC 2022.
+For a summary of some of the contributions to this codebase during Google Summer of Code (GSOC),
+see  these links: [2021](https://probml.github.io/pml-book/gsoc/gsoc2021.html)
+and [2022](https://probml.github.io/pml-book/gsoc/gsoc2022.html).
 
 
 
@@ -73,9 +112,5 @@ Stay tuned for GSOC 2022.
 
 <h2><a id="acknowledgements"></a>Acknowledgements</h2>
 
-I would like to thank the following people for contributing to the code
-(list autogenerated from [this script](internal/contributors/contributors.py)):
-
-|  <img width="50" alt="image" src="https://github.com/Abdelrahman350.png"> | <img width="50" alt="image" src="https://github.com/alenm10.png"> | <img width="50" alt="image" src="https://github.com/always-newbie161.png"> | <img width="50" alt="image" src="https://github.com/AnandShegde.png"> | <img width="50" alt="image" src="https://github.com/andrewnc.png"> | <img width="50" alt="image" src="https://github.com/animesh-007.png"> | <img width="50" alt="image" src="https://github.com/AnkitaKumariJain14.png"> | <img width="50" alt="image" src="https://github.com/ashishpapanai.png"> | <img width="50" alt="image" src="https://github.com/Drishttii.png"> | <img width="50" alt="image" src="https://github.com/Duane321.png"> | <img width="50" alt="image" src="https://github.com/firatoncel.png"> | <img width="50" alt="image" src="https://github.com/Garvit9000c.png"> | <img width="50" alt="image" src="https://github.com/gerdm.png"> | <img width="50" alt="image" src="https://github.com/jdf22.png"> | <img width="50" alt="image" src="https://github.com/karalleyna.png"> | <img width="50" alt="image" src="https://github.com/karm-patel.png"> | <img width="50" alt="image" src="https://github.com/khanshehjad.png"> | <img width="50" alt="image" src="https://github.com/kzymgch.png"> | <img width="50" alt="image" src="https://github.com/mjsML.png"> | <img width="50" alt="image" src="https://github.com/murphyk.png"> | <img width="50" alt="image" src="https://github.com/nalzok.png"> | <img width="50" alt="image" src="https://github.com/nappaillav.png"> | <img width="50" alt="image" src="https://github.com/Neoanarika.png"> | <img width="50" alt="image" src="https://github.com/Nirzu97.png"> | <img width="50" alt="image" src="https://github.com/nitish1295.png"> | <img width="50" alt="image" src="https://github.com/nouranali.png"> | <img width="50" alt="image" src="https://github.com/patel-zeel.png"> | <img width="50" alt="image" src="https://github.com/patrickmineault.png"> | <img width="50" alt="image" src="https://github.com/raymondyeh07.png"> | <img width="50" alt="image" src="https://github.com/rohit-khoiwal-30.png"> | <img width="50" alt="image" src="https://github.com/shivaditya-meduri.png"> | <img width="50" alt="image" src="https://github.com/shobro.png"> | <img width="50" alt="image" src="https://github.com/susnato.png"> | <img width="50" alt="image" src="https://github.com/thvasilo.png"> |
-| :------------------------------------------------------------------------:|:-----------------------------------------------------------------:|:--------------------------------------------------------------------------:|:---------------------------------------------------------------------:|:------------------------------------------------------------------:|:---------------------------------------------------------------------:|:----------------------------------------------------------------------------:|:-----------------------------------------------------------------------:|:-------------------------------------------------------------------:|:------------------------------------------------------------------:|:--------------------------------------------------------------------:|:---------------------------------------------------------------------:|:---------------------------------------------------------------:|:---------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:---------------------------------------------------------------------:|:-----------------------------------------------------------------:|:---------------------------------------------------------------:|:-----------------------------------------------------------------:|:----------------------------------------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|:-----------------------------------------------------------------:|:--------------------------------------------------------------------:|:-------------------------------------------------------------------:|:--------------------------------------------------------------------:|:-------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:--------------------------------------------------------------------------:|:---------------------------------------------------------------------------:|:----------------------------------------------------------------:|:-----------------------------------------------------------------:|:------------------------------------------------------------------:|
-|  [Abdelrahman350](https://github.com/Abdelrahman350)                      | [alenm10](https://github.com/alenm10)                             | [always-newbie161](https://github.com/always-newbie161)                    | [AnandShegde](https://github.com/AnandShegde)                         | [andrewnc](https://github.com/andrewnc)                            | [animesh-007](https://github.com/animesh-007)                         | [AnkitaKumariJain14](https://github.com/AnkitaKumariJain14)                  | [ashishpapanai](https://github.com/ashishpapanai)                       | [Drishttii](https://github.com/Drishttii)                           | [Duane321](https://github.com/Duane321)                            | [firatoncel](https://github.com/firatoncel)                          | [Garvit9000c](https://github.com/Garvit9000c)                         | [gerdm](https://github.com/gerdm)                               | [jdf22](https://github.com/jdf22)                               | [karalleyna](https://github.com/karalleyna)                          | [karm-patel](https://github.com/karm-patel)                          | [khanshehjad](https://github.com/khanshehjad)                         | [kzymgch](https://github.com/kzymgch)                             | [mjsML](https://github.com/mjsML)                               | [murphyk](https://github.com/murphyk)                             | [nalzok](https://github.com/nalzok)                              | [nappaillav](https://github.com/nappaillav)                          | [Neoanarika](https://github.com/Neoanarika)                          | [Nirzu97](https://github.com/Nirzu97)                             | [nitish1295](https://github.com/nitish1295)                          | [nouranali](https://github.com/nouranali)                           | [patel-zeel](https://github.com/patel-zeel)                          | [patrickmineault](https://github.com/patrickmineault)                     | [raymondyeh07](https://github.com/raymondyeh07)                        | [rohit-khoiwal-30](https://github.com/rohit-khoiwal-30)                    | [shivaditya-meduri](https://github.com/shivaditya-meduri)                   | [shobro](https://github.com/shobro)                              | [susnato](https://github.com/susnato)                             | [thvasilo](https://github.com/thvasilo)                            |
+For a list of contributors, see
+[this list](https://github.com/probml/pyprobml/graphs/contributors).
